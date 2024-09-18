@@ -4,15 +4,51 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2utt</title>
-
-<style contenteditable="plaintext-only">
-* { all: unset; font-family: monospace; }
+<style spellcheck="false" contenteditable="plaintext-only">
+/* base stylings */
+* {
+	all: unset;
+	font-family: cursive, monospace;
+}
+</style>
+<style spellcheck="false" contenteditable="plaintext-only">
+/* experimental stylings */
 </style>
 </head>
-
 <body spellcheck="false" contenteditable="plaintext-only">
-document.querySelectorAll("*[contenteditable='true']")
-https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+<a id="save">save</a>
+<a id="run">demo</a>
+<script>
+/*
+ - TODO: use this to turn off editting for parent nodes !!
+ - document.querySelectorAll("*[contenteditable='true']")
+
+ - TODO: save quine changes to local storage
+ - https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+
+ - TODO:
+ - https://github.com/benlk/misc-licenses
+ 
+ - TODO: add list of clickable colors
+ - https://developer.mozilla.org/en-US/docs/Web/CSS/named-color
+
+ - TODO: PWA
+ - https://christianheilmann.com/2022/01/13/turning-a-github-page-into-a-progressive-web-app/
+ - https://github.com/alirahimi818/simple-PWA
+
+ - TODO: let page save back onto gh from itself
+ - https://github.com/TiddlyWiki/TiddlyWiki5/blob/master/core/modules/savers/github.js
+*/
+document.querySelector("#save").onclick = (e) => {
+	const quine = `<!DOCTYPE html>\n<html lang="en">\n${document.body.parentElement.innerHTML}\n</html>\n`;
+	e.target.download = "2utt.html.txt";
+	e.target.href = window.URL.createObjectURL(new Blob([quine], {type: "text/plain"}));
+};
+document.querySelector("#run").onclick = (e) => {
+	const quine = `<!DOCTYPE html>\n<html lang="en">\n${document.body.parentElement.innerHTML}\n</html>\n`;
+	e.target.href = window.URL.createObjectURL(new Blob([quine], {type: "text/html"}));
+};
+</script>
 <pre>
 2utt/README.md
 - 👋 Hi, I’m @2utt
