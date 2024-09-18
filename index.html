@@ -4,21 +4,71 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2utt</title>
-<style spellcheck="false" contenteditable="plaintext-only">
-/* base stylings */
+<style spellcheck="false" contenteditable="plaintext-only">/* <style> */
+* { all: unset; }
+
+meta { display: none; }
+
 * {
-	all: unset;
-	font-family: cursive, monospace;
+font-family: cursive, monospace;
+display:block;
+padding: 6px 6px 6px 6px;
+margin: auto;
+scrollbar-gutter: stable both-edges;
+scrollbar-color: darkorange grey;
 }
-</style>
-<style spellcheck="false" contenteditable="plaintext-only">
-/* experimental stylings */
+
+:hover {
+box-shadow: -1px 0 black, 1px 0 black, 0 -1px black, 0 1px black;
+}
+
+[contenteditable="plaintext-only"] {
+padding: 1ch;
+background: linen;
+border: 1px black solid;
+box-shadow: -4px 0 grey, 4px 0 grey;
+}
+
+[contenteditable="plaintext-only"]:focus {
+background:lightyellow;
+caret-color: #000000;
+box-shadow: -4px 0 black, 4px 0 black;
+}
+
+/* [contenteditable="false"] { box-shadow: -4px 0 silver; } */
+
+/* </style> */</style>
+<style spellcheck="false" contenteditable="plaintext-only">/* <style> */
+
+* {
+max-width: 80ch;
+font-size: 16px;
+overflow:scroll;
+}
+
+title {
+font-size: 16pt;
+font-style: italic; font-weight: bold;
+text-decoration:double underline;
+}
+
+
+::selection {
+background:orange;
+color: #000000;
+}
+
+style {
+max-height: 12lh;
+}
+
+/* </style> */
 </style>
 </head>
-<body spellcheck="false" contenteditable="plaintext-only">
-<a id="save" contenteditable="false">save</a>
-<a id="run" contenteditable="false">demo</a>
-<script>
+<body spellcheck="false">
+<a id="save" contenteditable="false" download="2utt.html.txt" href="blob:https://2utt.github.io/8558b5ff-8f4e-458b-8dd8-85d16d932db3">save</a>
+<a id="run" contenteditable="false" href="blob:https://2utt.github.io/c12ed5c6-6ba2-43ac-a6fd-abc4fd0a77a3">demo</a>
+<script contenteditable="plaintext-only">/* <script> */
 "use strict";
 /*
  - TODO: use this to turn off editting for parent nodes !!
@@ -41,24 +91,21 @@
  - https://github.com/TiddlyWiki/TiddlyWiki5/blob/master/core/modules/savers/github.js
 */
 document.querySelector("#save").onclick = (e) => {
-	const quine = `<!DOCTYPE html>\n<html lang="en">\n${document.body.parentElement.innerHTML}\n</html>\n`;
+	const quine = `<!doctype html>\n<html lang="en">\n${document.body.parentElement.innerHTML}</html>\n`;
 	e.target.download = "2utt.html.txt";
 	e.target.href = window.URL.createObjectURL(new Blob([quine], {type: "text/plain"}));
 };
 document.querySelector("#run").onclick = (e) => {
-	const quine = `<!DOCTYPE html>\n<html lang="en">\n${document.body.parentElement.innerHTML}\n</html>\n`;
+	const quine = `<!doctype html>\n<html lang="en">\n${document.body.parentElement.innerHTML}</html>\n`;
 	e.target.href = window.URL.createObjectURL(new Blob([quine], {type: "text/html"}));
 };
 
 fetch(document.location.href).then((resp) => {
-	const csp = resp.headers.get("Content-Security-Policy");
-	console.log("resp", resp);
 	console.log("Last-Modified", resp.headers.get("Last-Modified"));
-	console.log("Content-Security-Policy", resp.headers.get("Content-Security-Policy"));
 });
+/* </script> */
 </script>
-<pre>
-2utt/README.md
+<pre contenteditable="plaintext-only">2utt/README.md
 - 👋 Hi, I’m @2utt
 - 👀 I’m interested in ...
 - 🌱 I’m currently learning ...
