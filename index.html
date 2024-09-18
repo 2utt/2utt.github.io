@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+<meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline'">
 <title>2utt</title>
 <style spellcheck="false" contenteditable="plaintext-only">
 /* base stylings */
@@ -20,6 +20,7 @@
 <a id="save">save</a>
 <a id="run">demo</a>
 <script>
+"use strict";
 /*
  - TODO: use this to turn off editting for parent nodes !!
  - document.querySelectorAll("*[contenteditable='true']")
@@ -49,6 +50,13 @@ document.querySelector("#run").onclick = (e) => {
 	const quine = `<!DOCTYPE html>\n<html lang="en">\n${document.body.parentElement.innerHTML}\n</html>\n`;
 	e.target.href = window.URL.createObjectURL(new Blob([quine], {type: "text/html"}));
 };
+
+fetch(document.location.href).then((resp) => {
+	const csp = resp.headers.get("Content-Security-Policy");
+	console.log("resp", resp);
+	console.log("Last-Modified", resp.headers.get("Last-Modified"));
+	console.log("Content-Security-Policy", resp.headers.get("Content-Security-Policy"));
+});
 </script>
 <pre>
 2utt/README.md
