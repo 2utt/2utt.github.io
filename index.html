@@ -99,6 +99,7 @@ document.querySelector("#run").onclick = (e) => {
 	e.target.href = window.URL.createObjectURL(new Blob([quine()], {type: "text/html"}));
 };
 document.querySelector("#size").onclick = (e) => {
+	e.target.innerHTML = "size?";
 	e.target.innerHTML = `size? ${new Blob([quine()], {type: "text/html"}).size}B`;
 };
 
