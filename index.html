@@ -66,6 +66,7 @@ max-height: 12lh;
 <body spellcheck="false">
 <a id="save" contenteditable="false" download="2utt.html.txt" href="blob:https://2utt.github.io/8558b5ff-8f4e-458b-8dd8-85d16d932db3">save</a>
 <a id="run" contenteditable="false" href="blob:https://2utt.github.io/c12ed5c6-6ba2-43ac-a6fd-abc4fd0a77a3">demo</a>
+<a id="size" contenteditable="false">size?</a>
 <script contenteditable="plaintext-only">
 "use strict";
 /*
@@ -88,14 +89,17 @@ max-height: 12lh;
  - TODO: let page save back onto gh from itself
  - https://github.com/TiddlyWiki/TiddlyWiki5/blob/master/core/modules/savers/github.js
 */
+quine = () => `<!doctype html>\n<html lang="en">\n${document.body.parentElement.innerHTML}</html>\n`;
+
 document.querySelector("#save").onclick = (e) => {
-	const quine = `<!doctype html>\n<html lang="en">\n${document.body.parentElement.innerHTML}</html>\n`;
 	e.target.download = "2utt.html.txt";
-	e.target.href = window.URL.createObjectURL(new Blob([quine], {type: "text/plain"}));
+	e.target.href = window.URL.createObjectURL(new Blob([quine()], {type: "text/plain"}));
 };
 document.querySelector("#run").onclick = (e) => {
-	const quine = `<!doctype html>\n<html lang="en">\n${document.body.parentElement.innerHTML}</html>\n`;
-	e.target.href = window.URL.createObjectURL(new Blob([quine], {type: "text/html"}));
+	e.target.href = window.URL.createObjectURL(new Blob([quine()], {type: "text/html"}));
+};
+document.querySelector("#size").onclick = (e) => {
+	e.target.innerHTML = `size? ${new Blob([quine()], {type: "text/html"}).size}B`;
 };
 
 fetch(document.location.href).then((resp) => {
