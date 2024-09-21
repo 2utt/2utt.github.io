@@ -89,7 +89,7 @@ max-height: 12lh;
  - TODO: let page save back onto gh from itself
  - https://github.com/TiddlyWiki/TiddlyWiki5/blob/master/core/modules/savers/github.js
 */
-quine = () => `<!doctype html>\n<html lang="en">\n${document.body.parentElement.innerHTML}</html>\n`;
+window.quine = () => `<!doctype html>\n<html lang="en">\n${document.body.parentElement.innerHTML}</html>\n`;
 
 document.querySelector("#save").onclick = (e) => {
 	e.target.download = "2utt.html.txt";
